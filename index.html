@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header>
+        <h1>Планировщик задач</h1>
+        <div>
+            <label>
+                Название задачи: <input type='text' id='new_task_name'>
+            </label>
+            <label>
+                Описание задачи: <textarea id='new_task_description' rows='3'></textarea>
+            </label>
+            <label>
+                Дата начала задачи: <input type='datetime-local' id='new_task_start_date'>
+            </label>
+            <label>
+                Дата выполнения задачи: <input type='datetime-local' id='new_task_end_date'>
+            </label>
+            <button id='create_new_task'>Создать задачу</button>
+        </div>
+    </header>
+    <main>
+        <div class='new_task_desk'>
+            <ul id='new_task_list'></ul>
+        </div>
+        <div class='resolved_task_desk'>
+            <ul id='resolved_task_list'></ul>
+        </div>
+    </main>
+    <footer>
+        <button id='check_session_storage_data' onclick="showSSData()">Check Storage Data</button>
+        <button id='check_session_storage_data' onclick="deleteSSData()">Clear Storage Data</button>
+        <script>
+            function showSSData() {
+                alert(JSON.stringify(localStorage, null, 2));
+                return;
+            }
+            function deleteSSData() {
+                localStorage.clear();
+                return;
+            }
+        </script>
+    </footer>
+    <script src="./index.js" type="module"></script>
+    <script src="./js/create_task_element.js" type="module"></script>
+    <script src="./js/data.js" type="module"></script>
+</body>
+</html>
