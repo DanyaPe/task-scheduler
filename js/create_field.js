@@ -35,7 +35,7 @@ function create_field(text, value, id) {
     };
     input.disabled = true;
     label.appendChild(input);
-    return label;
+    return { label, input };
 }
 
 export default create_field;

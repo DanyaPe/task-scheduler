@@ -22,48 +22,48 @@ function create_task_element(taskObj) {
     } else {
         const TaskListElement = { 
             li: document.createElement('li'),
-            properties: [],
-            buttons: []
+            properties: {},
+            buttons: {}
         };
-        Object.getOwnPropertyNames(taskObj).forEach((property) => {
-            switch (property) {
-                case 'status':
-                    TaskListElement.properties.push(create_field('Статус задачи: ', taskObj[property], `${taskObj.id}_status_field`));
-                    break;
-                case 'name':
-                    TaskListElement.properties.push(create_field('Название задачи: ', taskObj[property], `${taskObj.id}_name_field`));
-                    break;
-                case 'description':
-                    TaskListElement.properties.push(create_field('Описание задачи: ', taskObj[property], `${taskObj.id}_description_field`));
-                    break;
-                case 'startDate':
-                    TaskListElement.properties.push(create_field('Дата начала задачи: ', new Date(taskObj[property]), `${taskObj.id}_start_date_field`));
-                    break;
-                case 'endDate':
-                    TaskListElement.properties.push(create_field('Дата окончания задачи: ', new Date(taskObj[property]), `${taskObj.id}_end_date_field`));
-                    break;
+        Object.keys(taskObj).forEach((key) => {
+            switch (key) {
                 case 'id':
                     TaskListElement.li.id = taskObj.id;
                     break;
+                case 'status':
+                    TaskListElement.properties.status = create_field('Статус задачи: ', taskObj[key], `${taskObj.id}_status_field`);
+                    break;
+                case 'name':
+                    TaskListElement.properties.name = create_field('Название задачи: ', taskObj[key], `${taskObj.id}_name_field`);
+                    break;
+                case 'description':
+                    TaskListElement.properties.description = create_field('Описание задачи: ', taskObj[key], `${taskObj.id}_description_field`);
+                    break;
+                case 'startDate':
+                    TaskListElement.properties.startDate = create_field('Дата начала задачи: ', new Date(taskObj[key]), `${taskObj.id}_start_date_field`);
+                    break;
+                case 'endDate':
+                    TaskListElement.properties.endDate = create_field('Дата окончания задачи: ', new Date(taskObj[key]), `${taskObj.id}_end_date_field`);
+                    break;
                 default:
-                    TaskListElement.properties.push(create_field(property + ': ', taskObj[property]));
+                    TaskListElement.properties.key = create_field(key + ': ', taskObj[key]);
                     break;
             };
         });
-        TaskListElement.buttons.push(task_save_button(TaskListElement));
-        TaskListElement.buttons.push(task_edit_cancel_button(TaskListElement));
-        TaskListElement.buttons.push(task_edit_button(TaskListElement));
-        TaskListElement.buttons.push(task_resolve_button(TaskListElement));
-        TaskListElement.buttons.push(task_reopen_button(TaskListElement));
-        TaskListElement.buttons.push(task_delete_button(TaskListElement));
+        TaskListElement.buttons.save_button = task_save_button(TaskListElement);
+        TaskListElement.buttons.edit_cancel_button = task_edit_cancel_button(TaskListElement);
+        TaskListElement.buttons.edit_button = task_edit_button(TaskListElement);
+        TaskListElement.buttons.resolve_button = task_resolve_button(TaskListElement);
+        TaskListElement.buttons.reopen_button = task_reopen_button(TaskListElement);
+        TaskListElement.buttons.delete_button = task_delete_button(TaskListElement);
         for (let field in TaskListElement.properties) {
-            TaskListElement.li.appendChild(TaskListElement.properties[field]);
+            TaskListElement.li.appendChild(TaskListElement.properties[field].label);
         };
         for (let button in TaskListElement.buttons) {
             TaskListElement.li.appendChild(TaskListElement.buttons[button]);
         };
         Storage.getItem(taskObj.id) !== null ? console.log(`Данные по задаче id=${taskObj.id} уже записаны в sessionStorage, проверьте корректность указанных полей`) : Storage.setItem(taskObj.id, JSON.stringify(taskObj));
-
+        console.log(TaskListElement)
         return TaskListElement;
     };
 }
