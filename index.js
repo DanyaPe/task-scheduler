@@ -13,7 +13,7 @@ CreateNewTaskButton.addEventListener('click', () => {
         endDate: TaskEndDateInput.value,
         otherField: 'Other Data',
     } );
-    NewTaskList.appendChild(create_task_element(NewTask));
+    NewTaskList.appendChild(create_task_element(NewTask).li);
     TaskNameInput.value = '';
     TaskDescriptionInput.value = '';
     TaskStartDateInput.value = '';
