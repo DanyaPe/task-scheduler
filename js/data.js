@@ -16,8 +16,8 @@ class Task {
         this.startDate = !isNaN(Date.parse(startDate)) ? new Date(startDate) : '' || '';
         this.endDate = !isNaN(Date.parse(endDate)) ? new Date(endDate) : '' || '';
         this.id = document.querySelectorAll('li[id^="task_"]').length > 0 ? `task_${Number(Array.from(document.querySelectorAll('li[id^="task_"]')).at(-1).id.slice(-1)) + 1}` : 'task_1';
-        for (let property in other) {
-            this.property = other[property];
+        for (let key in other) {
+            this[key] = other[key];
         }
     }
 }

@@ -46,7 +46,7 @@ function create_task_element(taskObj) {
                     TaskListElement.properties.endDate = create_field('Дата окончания задачи: ', new Date(taskObj[key]), `${taskObj.id}_end_date_field`);
                     break;
                 default:
-                    TaskListElement.properties.key = create_field(key + ': ', taskObj[key]);
+                    TaskListElement.properties[key] = create_field(key + ': ', taskObj[key]);
                     break;
             };
         });

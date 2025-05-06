@@ -11,7 +11,7 @@ CreateNewTaskButton.addEventListener('click', () => {
         description: TaskDescriptionInput.value,
         startDate: TaskStartDateInput.value,
         endDate: TaskEndDateInput.value,
-        otherField: 'Other Data',
+        ["Другое поле задачи"]: 'Other Data',
     } );
     NewTaskList.appendChild(create_task_element(NewTask).li);
     TaskNameInput.value = '';
