@@ -9,32 +9,25 @@ function task_edit_cancel_button(taskEl) {
     if (!taskEl || !(taskEl instanceof Object)) {
         console.error(`Ошибка добавление кнопки "Редактировать" к элементу задачи:\n${taskEl}`);
         return;
+    } else if (!taskEl.li.id || taskEl.li.id === undefined || taskEl.li.id === '') {
+        console.error(`Ошибка добавление кнопки "Удалить" к элементу задачи, не задан идентификатор:\n${taskEl}`);
+        return;
     } else {      
         const TaskEditCancelButton = document.createElement('button');
         TaskEditCancelButton.textContent = 'Отмена';
-        TaskEditCancelButton.id = `${taskEl.id}_edit_cancel_button`;
+        TaskEditCancelButton.id = `${taskEl.li.id}_edit_cancel_button`;
         TaskEditCancelButton.disabled = true;
         
         TaskEditCancelButton.addEventListener('click', () => {
-            const StatusField = document.getElementById(`${taskEl.id}_status_field`);
-            const NameField = document.getElementById(`${taskEl.id}_name_field`);
-            const DescriptionField = document.getElementById(`${taskEl.id}_description_field`);
-            const StartDateField = document.getElementById(`${taskEl.id}_start_date_field`);
-            const EndDateField = document.getElementById(`${taskEl.id}_end_date_field`);
-            const SSTask = JSON.parse(Storage.getItem(taskEl.id));
-            StatusField.value = SSTask.status;
-            StatusField.disabled = true;
-            NameField.value = SSTask.name;
-            NameField.disabled = true;
-            DescriptionField.value = SSTask.description;
-            DescriptionField.disabled = true;
-            StartDateField.value = SSTask.startDate;
-            StartDateField.disabled = true;
-            EndDateField.value = SSTask.endDate;
-            EndDateField.disabled = true;
-            TaskEditCancelButton.hidden = true;
-            document.getElementById(`${taskEl.id}_save_button`).disabled = true;
-            document.getElementById(`${taskEl.id}_edit_button`).disabled = false;
+            const SSTask = JSON.parse(Storage.getItem(taskEl.li.id));
+            for (let prop in taskEl.properties) {
+                taskEl.properties[prop].input.value = SSTask[prop];
+                taskEl.properties[prop].input.disabled = true;
+            }
+            TaskEditCancelButton.disabled = true;
+            taskEl.buttons['save_button'].disabled = true;
+            taskEl.buttons['edit_button'].disabled = false;
+            taskEl.buttons['resolve_button'].disabled = false;
         });
         
         return TaskEditCancelButton;

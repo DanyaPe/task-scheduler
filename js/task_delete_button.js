@@ -9,14 +9,17 @@ function task_delete_button(taskEl) {
     if (!taskEl || !(taskEl instanceof Object)) {
         console.error(`Ошибка добавление кнопки "Удалить" к элементу задачи:\n${taskEl}`);
         return;
+    } else if (!taskEl.li.id || taskEl.li.id === undefined || taskEl.li.id === '') {
+        console.error(`Ошибка добавление кнопки "Удалить" к элементу задачи, не задан идентификатор:\n${taskEl}`);
+        return;
     } else {
         const TaskDeleteButton = document.createElement('button');
         TaskDeleteButton.textContent = 'Удалить задачу';
-        TaskDeleteButton.id = `${taskEl.id}_delete_button`;
+        TaskDeleteButton.id = `${taskEl.li.id}_delete_button`;
         
         TaskDeleteButton.addEventListener('click', () => {
-            taskEl.parentElement.removeChild(taskEl);
-            Storage.getItem(taskEl.id) === null ? console.log(`Данные по задаче id=${taskEl.id} отсутствуют в sessionStorage, проверьте корректность указанных данных`) : Storage.removeItem(taskEl.id);
+            taskEl.li.parentElement.removeChild(taskEl.li);
+            Storage.getItem(taskEl.li.id) === null ? console.log(`Данные по задаче id=${taskEl.li.id} отсутствуют в sessionStorage, проверьте корректность указанных данных`) : Storage.removeItem(taskEl.li.id);
         });
         
         return TaskDeleteButton;
