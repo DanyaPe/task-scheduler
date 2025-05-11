@@ -22,8 +22,8 @@ class Task {
         this['Статус задачи'] = status || 'Новая';
         this['Название задачи'] = name || 'Без названия';
         this['Описание задачи'] = description || '';
-        this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : '' || '';
-        this['Дата окончания задачи'] = !isNaN(Date.parse(endDate)) ? new Date(endDate) : '' || '';
+        this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date('');
+        this['Дата окончания задачи'] = !isNaN(Date.parse(endDate)) ? new Date(endDate) : new Date('');
         this.#id = document.querySelectorAll('li[id^="task_"]').length > 0 ? `task_${Number(Array.from(document.querySelectorAll('li[id^="task_"]')).at(-1).id.slice(-1)) + 1}` : 'task_1';
         for (let key in other) {
             this[key] = other[key];

@@ -42,6 +42,7 @@ function create_task_element(taskObj) {
             TaskListElement.li.appendChild(TaskListElement.buttons[button]);
         };
         Storage.getItem(TaskListElement.li.id) !== null ? console.log(`Данные по задаче id=${TaskListElement.li.id} уже записаны в sessionStorage, проверьте корректность указанных полей`) : Storage.setItem(TaskListElement.li.id, JSON.stringify(taskObj));
+        
         return TaskListElement;
     };
 }
