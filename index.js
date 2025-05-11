@@ -6,12 +6,12 @@ import create_task_element from "./js/create_task_element.js";
  */
 CreateNewTaskButton.addEventListener('click', () => {
     const NewTask = new Task( {
-        status : 'Новая',
-        name: TaskNameInput.value,
-        description: TaskDescriptionInput.value,
-        startDate: TaskStartDateInput.value,
-        endDate: TaskEndDateInput.value,
-        ["Другое поле задачи"]: 'Other Data',
+        'Статус задачи': 'Новая',
+        'Название задачи': TaskNameInput.value,
+        'Описание задачи': TaskDescriptionInput.value,
+        'Дата начала задачи': TaskStartDateInput.value,
+        'Дата окончания задачи': TaskEndDateInput.value,
+        'Другое поле задачи': 'Дополнительная информация',
     } );
     NewTaskList.appendChild(create_task_element(NewTask).li);
     TaskNameInput.value = '';
