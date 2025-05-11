@@ -8,7 +8,7 @@ import create_field from "./create_field.js";
 import { Storage } from "./data.js";
 
 /**
- * Функция создания задачи в виде объекта с HTML-элементом списка "li", набором полей, и кнопками.
+ * Функция создания задачи в виде объекта с HTML-элементом списка "li", набором полей и кнопок.
  * @param {!object} taskObj - Объект экземпляра "Task"
  * @returns {object}
  */
