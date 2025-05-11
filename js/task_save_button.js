@@ -32,6 +32,7 @@ function task_save_button(taskEl) {
                 TaskSaveButton.disabled = true;
                 taskEl.buttons['edit_cancel_button'].disabled = true;
                 taskEl.buttons['edit_button'].disabled = false;
+                taskEl.buttons['resolve_button'].disabled = false;
             };
         });
         
