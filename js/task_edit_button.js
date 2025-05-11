@@ -7,18 +7,21 @@ function task_edit_button(taskEl) {
     if (!taskEl || !(taskEl instanceof Object)) {
         console.error(`Ошибка добавление кнопки "Редактировать" к элементу задачи:\n${taskEl}`);
         return;
+    } else if (!taskEl.li.id || taskEl.li.id === undefined || taskEl.li.id === '') {
+        console.error(`Ошибка добавление кнопки "Удалить" к элементу задачи, не задан идентификатор:\n${taskEl}`);
+        return;
     } else {      
         const TaskEditButton = document.createElement('button');
         TaskEditButton.textContent = 'Редактировать задачу';
-        TaskEditButton.id = `${taskEl.id}_edit_button`;
+        TaskEditButton.id = `${taskEl.li.id}_edit_button`;
         
         TaskEditButton.addEventListener('click', () => {
-            document.querySelectorAll(`#${taskEl.id} input`).forEach((el) => {
-                el.disabled = false;
-            });
+            for (let prop in taskEl.properties) {
+                taskEl.properties[prop].input.disabled = false;
+            }
             TaskEditButton.disabled = true;
-            document.getElementById(`${taskEl.id}_save_button`).disabled = false;
-            document.getElementById(`${taskEl.id}_edit_cancel_button`).disabled = false;
+            taskEl.buttons['save_button'].disabled = false;
+            taskEl.buttons['edit_cancel_button'].disabled = false;
         });
         
         return TaskEditButton;

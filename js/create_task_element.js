@@ -16,7 +16,7 @@ function create_task_element(taskObj) {
     if (!taskObj || !(taskObj instanceof Object)) {
         alert(`Переданный тип данных не является объектом "Task":\n${taskObj}\nОшибка при создании элемента списка`);
         return;
-    } else if (taskObj.startDate && taskObj.endDate && taskObj.endDate <= taskObj.startDate) {
+    } else if (taskObj['Дата начала задачи'] && taskObj['Дата окончания задачи'] && taskObj['Дата окончания задачи'] <= taskObj['Дата начала задачи']) {
         alert('Значение поля "Дата выполнения задачи" должно быть больше значения поля "Дата начала задачи"');
         return;
     } else {

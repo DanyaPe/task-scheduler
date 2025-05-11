@@ -24,7 +24,6 @@ CreateNewTaskButton.addEventListener('click', () => {
  * Формируем задачи на досках исходя из данных в localStorage
  */
 for (let index = 0; index < Storage.length; index++) {
-    console.log(JSON.parse(Storage.getItem(Storage.key(index))));
     try {
         let SSTask = new Task(JSON.parse(Storage.getItem(Storage.key(index))));
         if (SSTask.status !== 'Решена') NewTaskList.appendChild(create_task_element(SSTask).li);
