@@ -1,16 +1,17 @@
-import task_resolve_button from "./task_resolve_button.js";
-import task_delete_button from "./task_delete_button.js";
-import task_edit_button from "./task_edit_button.js";
-import task_save_button from "./task_save_button.js";
-import task_edit_cancel_button from "./task_edit_cancel_button.js";
-import task_reopen_button from "./task_reopen_button.js";
+import task_resolve from "./task_resolve.js";
+import task_delete from "./task_delete.js";
+import task_edit from "./task_edit.js";
+import task_save from "./task_save.js";
+import task_edit_cancel from "./task_edit_cancel.js";
+import task_reopen from "./task_reopen.js";
 import create_field from "./create_field.js";
 import { Storage } from "./data.js";
+import create_button from './create_button.js';
 
 /**
  * Функция создания задачи в виде объекта с HTML-элементом списка "li", набором полей и кнопок.
  * @param {!object} taskObj - Объект экземпляра "Task"
- * @returns {object}
+ * @returns {Node}
  */
 function create_task_element(taskObj) {
     if (!taskObj || !(taskObj instanceof Object)) {
@@ -29,12 +30,12 @@ function create_task_element(taskObj) {
         Object.keys(taskObj).forEach((key) => {
             TaskListElement.properties[key] = create_field(key + ': ', taskObj[key]);
         });
-        TaskListElement.buttons.save_button = task_save_button(TaskListElement);
-        TaskListElement.buttons.edit_cancel_button = task_edit_cancel_button(TaskListElement);
-        TaskListElement.buttons.edit_button = task_edit_button(TaskListElement);
-        TaskListElement.buttons.resolve_button = task_resolve_button(TaskListElement);
-        TaskListElement.buttons.reopen_button = task_reopen_button(TaskListElement);
-        TaskListElement.buttons.delete_button = task_delete_button(TaskListElement);
+        TaskListElement.buttons.save_button = create_button(TaskListElement, 'Сохранить задачу', true, task_save);
+        TaskListElement.buttons.edit_cancel_button = create_button(TaskListElement, 'Отменить изменения', true, task_edit_cancel);
+        TaskListElement.buttons.edit_button = create_button(TaskListElement, 'Редактировать задачу', false, task_edit);
+        TaskListElement.buttons.resolve_button = create_button(TaskListElement, 'Выполнить задачу', false, task_resolve);
+        TaskListElement.buttons.reopen_button = create_button(TaskListElement, 'Переоткрыть задачу', true, task_reopen);
+        TaskListElement.buttons.delete_button = create_button(TaskListElement, 'Удалить задачу', false, task_delete);
         for (let field in TaskListElement.properties) {
             TaskListElement.li.appendChild(TaskListElement.properties[field].label);
         };
