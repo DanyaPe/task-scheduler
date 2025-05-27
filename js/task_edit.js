@@ -1,15 +1,18 @@
+import get_task_element from './get_task_element.js';
+
 /**
  * Функция перевода задачи в режим редактирования
- * @param {!Node} taskEl - HTML-элемент "li" представляющий задачу на одной из досок
+ * @param {!string} taskId - Id элемента задачи
  */
-function task_edit(taskEl) {
-    for (let prop in taskEl.properties) {
-        taskEl.properties[prop].input.disabled = false;
+function task_edit(taskId) {
+    const TaskEl = get_task_element(taskId);
+    for (let prop in TaskEl.inputs) {
+        TaskEl.inputs[prop].disabled = false;
     }
-    taskEl.buttons['edit_button'].disabled = true;
-    taskEl.buttons['save_button'].disabled = false;
-    taskEl.buttons['edit_cancel_button'].disabled = false;
-    taskEl.buttons['resolve_button'].disabled = true;
+    TaskEl.buttons['Редактировать задачу'].disabled = true;
+    TaskEl.buttons['Сохранить задачу'].disabled = false;
+    TaskEl.buttons['Отменить изменения'].disabled = false;
+    TaskEl.buttons['Выполнить задачу'].disabled = true;
 }
 
 export default task_edit;

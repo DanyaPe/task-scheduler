@@ -1,19 +1,21 @@
+import get_task_element from './get_task_element.js';
 import { Storage } from "./data.js";
 
 /**
  * Функция отмены внесенных изменений в задачу
- * @param {!Node} taskEl - HTML-элемент "li" представляющий задачу на одной из досок
+ * @param {!string} taskId - Id элемента задачи
  */
-function task_edit_cancel(taskEl) {
-    const SSTask = JSON.parse(Storage.getItem(taskEl.li.id));
-    for (let prop in taskEl.properties) {
-        taskEl.properties[prop].input.value = SSTask[prop];
-        taskEl.properties[prop].input.disabled = true;
+function task_edit_cancel(taskId) {
+    const TaskEl = get_task_element(taskId);
+    const SSTask = JSON.parse(Storage.getItem(taskId));
+    for (let prop in TaskEl.inputs) {
+        TaskEl.inputs[prop].value = SSTask[prop];
+        TaskEl.inputs[prop].disabled = true;
     }
-    taskEl.buttons['edit_cancel_button'].disabled = true;
-    taskEl.buttons['save_button'].disabled = true;
-    taskEl.buttons['edit_button'].disabled = false;
-    taskEl.buttons['resolve_button'].disabled = false;
+    TaskEl.buttons['Отменить изменения'].disabled = true;
+    TaskEl.buttons['Сохранить задачу'].disabled = true;
+    TaskEl.buttons['Редактировать задачу'].disabled = false;
+    TaskEl.buttons['Выполнить задачу'].disabled = false;
 }
 
 export default task_edit_cancel;

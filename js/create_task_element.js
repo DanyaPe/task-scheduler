@@ -21,28 +21,19 @@ function create_task_element(taskObj) {
         alert('Значение поля "Дата выполнения задачи" должно быть больше значения поля "Дата начала задачи"');
         return;
     } else {
-        const TaskListElement = { 
-            li: document.createElement('li'),
-            properties: {},
-            buttons: {}
-        };
-        TaskListElement.li.id = taskObj.getId();
+        const TaskListElement = document.createElement('li');
+        TaskListElement.id = taskObj.getId();
+        TaskListElement.draggable = true;
         Object.keys(taskObj).forEach((key) => {
-            TaskListElement.properties[key] = create_field(key + ': ', taskObj[key]);
+            TaskListElement.appendChild(create_field(key, taskObj[key]));
         });
-        TaskListElement.buttons.save_button = create_button(TaskListElement, 'Сохранить задачу', true, task_save);
-        TaskListElement.buttons.edit_cancel_button = create_button(TaskListElement, 'Отменить изменения', true, task_edit_cancel);
-        TaskListElement.buttons.edit_button = create_button(TaskListElement, 'Редактировать задачу', false, task_edit);
-        TaskListElement.buttons.resolve_button = create_button(TaskListElement, 'Выполнить задачу', false, task_resolve);
-        TaskListElement.buttons.reopen_button = create_button(TaskListElement, 'Переоткрыть задачу', true, task_reopen);
-        TaskListElement.buttons.delete_button = create_button(TaskListElement, 'Удалить задачу', false, task_delete);
-        for (let field in TaskListElement.properties) {
-            TaskListElement.li.appendChild(TaskListElement.properties[field].label);
-        };
-        for (let button in TaskListElement.buttons) {
-            TaskListElement.li.appendChild(TaskListElement.buttons[button]);
-        };
-        Storage.getItem(TaskListElement.li.id) !== null ? console.log(`Данные по задаче id=${TaskListElement.li.id} уже записаны в sessionStorage, проверьте корректность указанных полей`) : Storage.setItem(TaskListElement.li.id, JSON.stringify(taskObj));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Сохранить задачу', true, task_save));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Отменить изменения', true, task_edit_cancel));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Редактировать задачу', false, task_edit));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Выполнить задачу', false, task_resolve));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Вернуть задачу в работу', true, task_reopen));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Удалить задачу', false, task_delete));
+        Storage.getItem(TaskListElement.id) !== null ? console.warn(`Внимание: Данные по задаче ${TaskListElement.id} уже записаны в хранилище, проверьте корректность данных`) : Storage.setItem(TaskListElement.id, JSON.stringify(taskObj));
         
         return TaskListElement;
     };

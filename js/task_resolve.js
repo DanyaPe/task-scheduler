@@ -1,19 +1,21 @@
 import { NewTaskList, ResolvedTaskList, Storage, Task } from "./data.js";
+import get_task_element from './get_task_element.js';
 
 /**
  * Функция перевода задачи в статус "Выполнена"
- * @param {!Node} taskEl - HTML-элемент "li" представляющий задачу на одной из досок
+ * @param {!string} taskId - Id элемента задачи
  */
-function task_resolve(taskEl) {
-    const SSTask = new Task(JSON.parse(Storage.getItem(taskEl.li.id)));
+function task_resolve(taskId) {
+    const TaskEl = get_task_element(taskId);
+    const SSTask = new Task(JSON.parse(Storage.getItem(taskId)));
     SSTask['Статус задачи'] = 'Решена';
-    Storage.setItem(taskEl.li.id, JSON.stringify(SSTask));
-    taskEl.properties['Статус задачи'].input.value = 'Решена';
-    NewTaskList.removeChild(taskEl.li);
-    ResolvedTaskList.appendChild(taskEl.li);
-    taskEl.buttons['resolve_button'].disabled = true;
-    taskEl.buttons['edit_button'].disabled = true;
-    taskEl.buttons['reopen_button'].disabled = false;
+    Storage.setItem(taskId, JSON.stringify(SSTask));
+    TaskEl.inputs['Статус задачи'].value = 'Решена';
+    NewTaskList.removeChild(TaskEl.li);
+    ResolvedTaskList.appendChild(TaskEl.li);
+    TaskEl.buttons['Выполнить задачу'].disabled = true;
+    TaskEl.buttons['Редактировать задачу'].disabled = true;
+    TaskEl.buttons['Вернуть задачу в работу'].disabled = false;
 }
 
 export default task_resolve;

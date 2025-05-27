@@ -1,12 +1,14 @@
+import get_task_element from './get_task_element.js';
 import { Storage } from './data.js';
 
 /**
  * Функция удаления задачи из списка
- * @param {!Node} taskEl - HTML-элемент "li" представляющий собой задачу на доске
+ * @param {!string} taskId - Id элемента задачи
  */
-function task_delete(taskEl) {
-    taskEl.li.parentElement.removeChild(taskEl.li);
-    Storage.getItem(taskEl.li.id) === null ? console.log(`Данные по задаче id=${taskEl.li.id} отсутствуют в sessionStorage, проверьте корректность указанных данных`) : Storage.removeItem(taskEl.li.id);
+function task_delete(taskId) {
+    const TaskEl = get_task_element(taskId);
+    TaskEl.li.parentElement.removeChild(TaskEl.li);
+    Storage.getItem(taskId) === null ? console.warn(`Данные по задаче id=${taskId} отсутствуют в хранилище, проверьте корректность указанных данных`) : Storage.removeItem(taskId);
 }
 
 export default task_delete;
