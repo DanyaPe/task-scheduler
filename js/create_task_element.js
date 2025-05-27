@@ -1,16 +1,18 @@
-import task_resolve_button from "./task_resolve_button.js";
-import task_delete_button from "./task_delete_button.js";
-import task_edit_button from "./task_edit_button.js";
-import task_save_button from "./task_save_button.js";
-import task_edit_cancel_button from "./task_edit_cancel_button.js";
-import task_reopen_button from "./task_reopen_button.js";
+import task_resolve from "./task_resolve.js";
+import task_delete from "./task_delete.js";
+import task_edit from "./task_edit.js";
+import task_save from "./task_save.js";
+import task_edit_cancel from "./task_edit_cancel.js";
+import task_reopen from "./task_reopen.js";
 import create_field from "./create_field.js";
 import { Storage } from "./data.js";
+import create_button from './create_button.js';
+import { onDragStart } from './drag_and_drop.js';
 
 /**
  * Функция создания задачи в виде объекта с HTML-элементом списка "li", набором полей и кнопок.
  * @param {!object} taskObj - Объект экземпляра "Task"
- * @returns {object}
+ * @returns {Node}
  */
 function create_task_element(taskObj) {
     if (!taskObj || !(taskObj instanceof Object)) {
@@ -20,28 +22,20 @@ function create_task_element(taskObj) {
         alert('Значение поля "Дата выполнения задачи" должно быть больше значения поля "Дата начала задачи"');
         return;
     } else {
-        const TaskListElement = { 
-            li: document.createElement('li'),
-            properties: {},
-            buttons: {}
-        };
-        TaskListElement.li.id = taskObj.getId();
+        const TaskListElement = document.createElement('li');
+        TaskListElement.id = taskObj.getId();
+        TaskListElement.draggable = true;
         Object.keys(taskObj).forEach((key) => {
-            TaskListElement.properties[key] = create_field(key + ': ', taskObj[key]);
+            TaskListElement.appendChild(create_field(key, taskObj[key]));
         });
-        TaskListElement.buttons.save_button = task_save_button(TaskListElement);
-        TaskListElement.buttons.edit_cancel_button = task_edit_cancel_button(TaskListElement);
-        TaskListElement.buttons.edit_button = task_edit_button(TaskListElement);
-        TaskListElement.buttons.resolve_button = task_resolve_button(TaskListElement);
-        TaskListElement.buttons.reopen_button = task_reopen_button(TaskListElement);
-        TaskListElement.buttons.delete_button = task_delete_button(TaskListElement);
-        for (let field in TaskListElement.properties) {
-            TaskListElement.li.appendChild(TaskListElement.properties[field].label);
-        };
-        for (let button in TaskListElement.buttons) {
-            TaskListElement.li.appendChild(TaskListElement.buttons[button]);
-        };
-        Storage.getItem(TaskListElement.li.id) !== null ? console.log(`Данные по задаче id=${TaskListElement.li.id} уже записаны в sessionStorage, проверьте корректность указанных полей`) : Storage.setItem(TaskListElement.li.id, JSON.stringify(taskObj));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Сохранить задачу', true, task_save));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Отменить изменения', true, task_edit_cancel));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Редактировать задачу', false, task_edit));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Выполнить задачу', false, task_resolve));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Вернуть задачу в работу', true, task_reopen));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Удалить задачу', false, task_delete));
+        TaskListElement.addEventListener('dragstart', onDragStart);
+        Storage.getItem(TaskListElement.id) !== null ? console.warn(`Внимание: Данные по задаче ${TaskListElement.id} уже записаны в хранилище, проверьте корректность данных`) : Storage.setItem(TaskListElement.id, JSON.stringify(taskObj));
         
         return TaskListElement;
     };
