@@ -13,7 +13,7 @@ body {
 }
 
 /* Стили для контейнера задач */
-.new_task_desk, .resolved_task_desk {
+#new_task_desk, #resolved_task_desk {
     min-height: 335px;
     width: 600px;
     margin-top: 0;
@@ -29,7 +29,7 @@ body {
 }
 
 /* Стили для карточек задач */
-.new_task_desk ul li, .resolved_task_desk ul li {
+#new_task_desk ul li, #resolved_task_desk ul li {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
