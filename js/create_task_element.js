@@ -7,6 +7,7 @@ import task_reopen from "./task_reopen.js";
 import create_field from "./create_field.js";
 import { Storage } from "./data.js";
 import create_button from './create_button.js';
+import { onDragStart } from './drag_and_drop.js';
 
 /**
  * Функция создания задачи в виде объекта с HTML-элементом списка "li", набором полей и кнопок.
@@ -33,6 +34,7 @@ function create_task_element(taskObj) {
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Выполнить задачу', false, task_resolve));
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Вернуть задачу в работу', true, task_reopen));
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Удалить задачу', false, task_delete));
+        TaskListElement.addEventListener('dragstart', onDragStart);
         Storage.getItem(TaskListElement.id) !== null ? console.warn(`Внимание: Данные по задаче ${TaskListElement.id} уже записаны в хранилище, проверьте корректность данных`) : Storage.setItem(TaskListElement.id, JSON.stringify(taskObj));
         
         return TaskListElement;

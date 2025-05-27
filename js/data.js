@@ -1,5 +1,7 @@
 const NewTaskList = document.getElementById('new_task_list');
 const ResolvedTaskList = document.getElementById('resolved_task_list');
+const NewTaskDesk = document.getElementById('new_task_desk');
+const ResolvedTaskDesk = document.getElementById('resolved_task_desk');
 const TaskNameInput = document.getElementById('new_task_name');
 const TaskDescriptionInput = document.getElementById('new_task_description');
 const TaskStartDateInput = document.getElementById('new_task_start_date');
@@ -34,4 +36,4 @@ class Task {
     }
 }
 
-export { NewTaskList, ResolvedTaskList, TaskNameInput, TaskDescriptionInput, TaskStartDateInput, TaskEndDateInput, CreateNewTaskButton, Storage, Task };
+export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, TaskNameInput, TaskDescriptionInput, TaskStartDateInput, TaskEndDateInput, CreateNewTaskButton, Storage, Task };
