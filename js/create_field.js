@@ -1,4 +1,5 @@
 import format_date from "./format_date.js";
+import task_save from "./task_save.js";
 
 /**
  * Функция создания именованного поля для ввода и хранения данных. Поле формата HTML-элемента "input" вложенного в "label".
@@ -34,6 +35,11 @@ function create_field(text, value, id) {
         };
     };
     input.disabled = true;
+    input.addEventListener('keydown', (event) => {
+        if(event.keyCode == 13) { // 13 код клавиши - Enter, при нажатии с элемента будет уходить фокус
+            input.blur();
+        }
+    });
     label.appendChild(input);
     return label;
 }

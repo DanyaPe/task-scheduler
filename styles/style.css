@@ -1,3 +1,7 @@
+:root {
+    --task-background-color: #f8f8f8;
+}
+
 main {
     border: 1px;
     border-radius: 10%;
@@ -28,6 +32,13 @@ body {
     flex-direction: column;
 }
 
+ul {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    padding: 0;
+}
+
 /* Стили для карточек задач */
 #new_task_desk ul li, #resolved_task_desk ul li {
     display: flex;
@@ -36,6 +47,8 @@ body {
     padding: 15px;
     row-gap: 10px;
     border-bottom: 1px solid #e0e0e0;
+    border-radius: 5%;
+    background-color: var(--task-background-color);
 }
 
 /* Стили для кнопок */
@@ -62,22 +75,34 @@ h1 {
     color: #333;
 }
 
-
 li label {
     display: flex;
+    flex-direction: column;
     text-wrap: nowrap;
+    row-gap: 10px;
 }
 
-li label input {
+li label input, li label input:focus-visible {
+    outline: none;
     padding: 0;
     width: 100%;
+    border-radius: 2px;
+    border-width: 0;
+    border-bottom-width: 1px;
+    border-top-color: var(--task-background-color);
+    border-right-color: var(--task-background-color);
+    border-left-color: var(--task-background-color);
+    background-color: var(--task-background-color);
 }
 
-input:disabled {
+li label input:focus-visible {
+    border-bottom-color: black;
+}
+
+li label input:disabled {
     border-style: solid;
-    border-color: white;
-    background-color: white;
     color: black;
+    border-bottom-color: #dbdbdb;
 }
 
 footer {
