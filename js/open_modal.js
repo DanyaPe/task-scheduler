@@ -30,6 +30,13 @@ function open_modal() {
             document.body.classList.remove('scroll_lock');
         }
     });
+    modal.addEventListener('keydown', (event) => {
+        if(event.keyCode == 27) {
+            modal.close();
+            document.body.removeChild(modal);
+            document.body.classList.remove('scroll_lock');
+        }
+    });
     document.getElementById('create_new_task').addEventListener('click', () => {
         NewTaskList.appendChild(create_task_element(new Task( {
             'Статус задачи': 'Новая',
