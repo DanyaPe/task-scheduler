@@ -8,6 +8,9 @@ function open_modal() {
     const modal = document.createElement('dialog');
     modal.innerHTML = `
         <form>
+            <svg id='close_cross' width='15px' height='15px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
+            </svg>
             <label>
                 Название задачи: <input type='text' id='new_task_name'>
             </label>
@@ -25,17 +28,16 @@ function open_modal() {
     document.body.appendChild(modal);
     modal.addEventListener('click', (event) => {
         if(event.target == event.currentTarget) {
-            modal.close();
-            document.body.removeChild(modal);
-            document.body.classList.remove('scroll_lock');
+            close_modal(modal);
         }
     });
     modal.addEventListener('keydown', (event) => {
         if(event.keyCode == 27) {
-            modal.close();
-            document.body.removeChild(modal);
-            document.body.classList.remove('scroll_lock');
+            close_modal(modal);
         }
+    });
+    document.getElementById('close_cross').addEventListener('click', ()=> {
+        close_modal(modal);
     });
     document.getElementById('create_new_task').addEventListener('click', () => {
         NewTaskList.appendChild(create_task_element(new Task( {
@@ -46,12 +48,22 @@ function open_modal() {
             'Дата окончания задачи': document.getElementById('new_task_end_date').value,
             'Другое поле задачи': 'Дополнительная информация',
         })));
-        modal.close();
-        document.body.removeChild(modal);
-        document.body.classList.remove('scroll_lock');
+        close_modal(modal);
     });
     modal.showModal();
     document.body.classList.add('scroll_lock');
+}
+
+/**
+ * Функция закрытия модального окна.
+ * @param {HTMLDialogElement} modal - модальное окно, которое необходимо закрыть
+ */
+function close_modal(modal) {
+    if(modal instanceof Object && modal.nodeName === 'DIALOG') {
+        modal.close();
+        document.body.removeChild(modal);
+        document.body.classList.remove('scroll_lock');
+    }
 }
 
 export default open_modal;
