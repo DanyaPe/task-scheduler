@@ -1,24 +1,12 @@
-import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, TaskNameInput, TaskDescriptionInput, TaskStartDateInput, TaskEndDateInput, CreateNewTaskButton, Storage, Task } from "./js/data.js";
-import create_task_element from "./js/create_task_element.js";
+import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, OpenModal, Storage, Task } from "./js/data.js";
 import { onDragOver, CloseOnDrop, ReopenOnDrop } from './js/drag_and_drop.js';
+import create_task_element from "./js/create_task_element.js";
+import open_modal from "./js/open_modal.js";
 
 /**
- * Добавляем обработчик для кнопки "Создать новую задачу"
+ * Добавляем обработчик для кнопки "Новая задача"
  */
-CreateNewTaskButton.addEventListener('click', () => {
-    NewTaskList.appendChild(create_task_element(new Task( {
-        'Статус задачи': 'Новая',
-        'Название задачи': TaskNameInput.value,
-        'Описание задачи': TaskDescriptionInput.value,
-        'Дата начала задачи': TaskStartDateInput.value,
-        'Дата окончания задачи': TaskEndDateInput.value,
-        'Другое поле задачи': 'Дополнительная информация',
-    } )));
-    TaskNameInput.value = '';
-    TaskDescriptionInput.value = '';
-    TaskStartDateInput.value = '';
-    TaskEndDateInput.value = '';
-});
+OpenModal.addEventListener('click', () => open_modal());
 
 /**
  * Добавляем обработчики на доски (для перетаскивания элементов)

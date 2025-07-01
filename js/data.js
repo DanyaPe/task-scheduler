@@ -2,11 +2,7 @@ const NewTaskList = document.getElementById('new_task_list');
 const ResolvedTaskList = document.getElementById('resolved_task_list');
 const NewTaskDesk = document.getElementById('new_task_desk');
 const ResolvedTaskDesk = document.getElementById('resolved_task_desk');
-const TaskNameInput = document.getElementById('new_task_name');
-const TaskDescriptionInput = document.getElementById('new_task_description');
-const TaskStartDateInput = document.getElementById('new_task_start_date');
-const TaskEndDateInput = document.getElementById('new_task_end_date');
-const CreateNewTaskButton = document.getElementById('create_new_task');
+const OpenModal = document.getElementById('open_modal');
 const Storage = localStorage;
 
 /**
@@ -36,4 +32,4 @@ class Task {
     }
 }
 
-export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, TaskNameInput, TaskDescriptionInput, TaskStartDateInput, TaskEndDateInput, CreateNewTaskButton, Storage, Task };
+export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, OpenModal, Storage, Task };
