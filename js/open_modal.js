@@ -8,9 +8,11 @@ function open_modal() {
     const modal = document.createElement('dialog');
     modal.innerHTML = `
         <form id='create_new_task'>
-            <svg id='close_cross' width='15px' height='15px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
-                <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
-            </svg>
+            <button id='close_cross'>
+                <svg width='15px' height='15px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
+                    <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
+                </svg>
+            </button>
             <label>
                 Название задачи: <input type='text' id='new_task_name'>
             </label>
