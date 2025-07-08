@@ -1,5 +1,5 @@
-import { ResolvedTaskList, NewTaskList, Storage, Task } from './data.js';
-import get_task_element from './get_task_element.js';
+import { ResolvedTaskList, NewTaskList, Storage, Task } from '../data.js';
+import get_task_element from '../get_task_element.js';
 
 /**
  * Функция переоткрытия задачи

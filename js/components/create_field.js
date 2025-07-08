@@ -1,4 +1,4 @@
-import format_date from "./format_date.js";
+import format_date from "../format_date.js";
 
 /**
  * Функция создания именованного поля для ввода и хранения данных. Поле формата HTML-элемента "input" вложенного в "label".

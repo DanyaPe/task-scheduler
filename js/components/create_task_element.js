@@ -1,13 +1,13 @@
-import task_resolve from "./task_resolve.js";
-import task_delete from "./task_delete.js";
-import task_edit from "./task_edit.js";
-import task_save from "./task_save.js";
-import task_edit_cancel from "./task_edit_cancel.js";
-import task_reopen from "./task_reopen.js";
+import task_resolve from "../task/task_resolve.js";
+import task_delete from "../task/task_delete.js";
+import task_edit from "../task/task_edit.js";
+import task_save from "../task/task_save.js";
+import task_edit_cancel from "../task/task_edit_cancel.js";
+import task_reopen from "../task/task_reopen.js";
 import create_field from "./create_field.js";
-import { Storage } from "./data.js";
 import create_button from './create_button.js';
-import { onDragStart } from './drag_and_drop.js';
+import { Storage } from "../data.js";
+import { onDragStart } from '../drag_and_drop.js';
 
 /**
  * Функция создания задачи в виде объекта с HTML-элементом списка "li", набором полей и кнопок.
@@ -30,13 +30,12 @@ function create_task_element(taskObj) {
         });
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Сохранить задачу', true, task_save));
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Отменить изменения', true, task_edit_cancel));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Редактировать задачу', false, task_edit));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Выполнить задачу', false, task_resolve));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Вернуть задачу в работу', true, task_reopen));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Редактировать задачу', taskObj['Статус задачи'] === 'Решена', task_edit));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Выполнить задачу', taskObj['Статус задачи'] === 'Решена', task_resolve));
+        TaskListElement.appendChild(create_button(TaskListElement.id, 'Вернуть задачу в работу', taskObj['Статус задачи'] !== 'Решена', task_reopen));
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Удалить задачу', false, task_delete));
         TaskListElement.addEventListener('dragstart', onDragStart);
         Storage.getItem(TaskListElement.id) !== null ? console.warn(`Внимание: Данные по задаче ${TaskListElement.id} уже записаны в хранилище, проверьте корректность данных`) : Storage.setItem(TaskListElement.id, JSON.stringify(taskObj));
-        
         return TaskListElement;
     };
 }

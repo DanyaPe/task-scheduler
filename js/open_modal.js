@@ -1,4 +1,4 @@
-import create_task_element from './create_task_element.js';
+import create_task_element from './components/create_task_element.js';
 import { Task, NewTaskList } from './data.js';
 
 /**
@@ -6,6 +6,7 @@ import { Task, NewTaskList } from './data.js';
  */
 function open_modal() {
     const modal = document.createElement('dialog');
+    const id = document.querySelectorAll('li[id^="task_"]').length > 0 ? `task_${Number(Array.from(document.querySelectorAll('li[id^="task_"]')).at(-1).id.slice(-1)) + 1}` : 'task_1';
     modal.innerHTML = `
         <form id='create_new_task'>
             <button id='close_cross'>
@@ -43,14 +44,15 @@ function open_modal() {
     });
     document.getElementById('create_new_task').addEventListener('submit', (event) => {
         event.preventDefault();
-        NewTaskList.appendChild(create_task_element(new Task( {
+        const taskObj = new Task( {
             'Статус задачи': 'Новая',
             'Название задачи': document.getElementById('new_task_name').value,
             'Описание задачи': document.getElementById('new_task_description').value,
             'Дата начала задачи': document.getElementById('new_task_start_date').value,
             'Дата окончания задачи': document.getElementById('new_task_end_date').value,
-            'Другое поле задачи': 'Дополнительная информация',
-        })));
+        });
+        taskObj.setId(id);
+        NewTaskList.appendChild(create_task_element(taskObj));
         close_modal(modal);
     });
     modal.showModal();

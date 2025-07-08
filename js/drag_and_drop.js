@@ -1,5 +1,5 @@
-import task_resolve from './task_resolve.js';
-import task_reopen from './task_reopen.js';
+import task_resolve from './task/task_resolve.js';
+import task_reopen from './task/task_reopen.js';
 
 /**
  * Handler-функция обработки данных при перетаскивании

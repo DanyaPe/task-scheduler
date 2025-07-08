@@ -1,6 +1,6 @@
-import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, OpenModal, Storage, Task } from "./js/data.js";
+import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, OpenModal, Storage, SortSelect, Task } from "./js/data.js";
 import { onDragOver, CloseOnDrop, ReopenOnDrop, onDragLeave } from './js/drag_and_drop.js';
-import create_task_element from "./js/create_task_element.js";
+import create_task_element from "./js/components/create_task_element.js";
 import open_modal from "./js/open_modal.js";
 
 /**
@@ -24,7 +24,8 @@ OpenModal.addEventListener('click', () => open_modal());
 for (let index = 0; index < Storage.length; index++) {
     try {
         const SSTask = new Task(JSON.parse(Storage.getItem(Storage.key(index))));
-        if (SSTask.status !== 'Решена') NewTaskList.appendChild(create_task_element(SSTask));
+        SSTask.setId(Storage.key(index));
+        if (SSTask['Статус задачи'] !== 'Решена') NewTaskList.appendChild(create_task_element(SSTask));
         else ResolvedTaskList.appendChild(create_task_element(SSTask));
     } catch (error) {
         console.error(`${error}\nНе удалось распарсить данные для формирования задачи по ключу: ${Storage.key(index)}`);

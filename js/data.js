@@ -3,6 +3,7 @@ const ResolvedTaskList = document.getElementById('resolved_task_list');
 const NewTaskDesk = document.getElementById('new_task_desk');
 const ResolvedTaskDesk = document.getElementById('resolved_task_desk');
 const OpenModal = document.getElementById('open_modal');
+const SortSelect = document.getElementById('sort');
 const Storage = localStorage;
 
 /**
@@ -22,7 +23,6 @@ class Task {
         this['Описание задачи'] = description || '';
         this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date('');
         this['Дата окончания задачи'] = !isNaN(Date.parse(endDate)) ? new Date(endDate) : new Date('');
-        this.#id = document.querySelectorAll('li[id^="task_"]').length > 0 ? `task_${Number(Array.from(document.querySelectorAll('li[id^="task_"]')).at(-1).id.slice(-1)) + 1}` : 'task_1';
         for (let key in other) {
             this[key] = other[key];
         }
@@ -30,6 +30,9 @@ class Task {
     getId() {
         return this.#id;
     }
+    setId(id) {
+        this.#id = id;
+    }
 }
 
-export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, OpenModal, Storage, Task };
+export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, OpenModal, Storage, SortSelect, Task };
