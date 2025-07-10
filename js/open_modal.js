@@ -6,9 +6,17 @@ import { Task, NewTaskList, Storage } from './data.js';
  */
 function open_modal() {
     const modal = document.createElement('dialog');
-    const id = Storage.length > 0 ? `task_${Number(Storage.key(Storage.length - 1).slice(-1)) + 1}` : 'task_1';
+    let id;
+    if (Storage.length > 0) {
+        id = `task_${Number(Storage.key(Storage.length - 1).slice(-1)) + 1}`;
+        while (Storage.getItem(id) !== null) {
+            id = `task_${Number(id.slice(-1)) + 1}`;
+        }
+    } else {
+        id = 'task_1';
+    };
     modal.innerHTML = `
-        <form id='create_new_task'>
+        <form id='new_task_form'>
             <button id='close_cross'>
                 <svg width='15px' height='15px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                     <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
@@ -26,23 +34,10 @@ function open_modal() {
             <label>
                 Дата выполнения задачи: <input type='datetime-local' id='new_task_end_date'>
             </label>
-            <button action='submit'>Создать задачу</button>
+            <button action='submit' id='create_new_task'>Создать задачу</button>
         </form>`;
     document.body.appendChild(modal);
-    modal.addEventListener('click', (event) => {
-        if(event.target == event.currentTarget) {
-            close_modal(modal);
-        }
-    });
-    modal.addEventListener('keydown', (event) => {
-        if(event.keyCode == 27) {
-            close_modal(modal);
-        }
-    });
-    document.getElementById('close_cross').addEventListener('click', ()=> {
-        close_modal(modal);
-    });
-    document.getElementById('create_new_task').addEventListener('submit', (event) => {
+    document.getElementById('new_task_form').addEventListener('submit', (event) => {
         event.preventDefault();
         const taskObj = new Task( {
             'Статус задачи': 'Новая',
@@ -55,7 +50,35 @@ function open_modal() {
         NewTaskList.appendChild(create_task_element(taskObj));
         close_modal(modal);
     });
+    modal.addEventListener('click', (event) => {
+        if (event.target == event.currentTarget) {
+            close_modal(modal);
+        }
+    });
+    document.getElementById('close_cross').addEventListener('click', ()=> {
+        close_modal(modal);
+    });
+    modal.addEventListener('keydown', (event) => {
+        if (event.key === 'Esc') close_modal(modal);
+    });
+    document.querySelectorAll('form input,textarea').forEach((el) => {
+        el.addEventListener('keydown', (event) => {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                event.stopPropagation();
+                modal.focus();
+            }
+        })
+    });
+    modal.addEventListener('keydown', (event) => {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            event.stopPropagation();
+            document.getElementById('new_task_form').dispatchEvent(new Event('submit'));
+        }
+    });
     modal.showModal();
+    modal.focus();
     document.body.classList.add('scroll_lock');
 }
 
@@ -64,11 +87,11 @@ function open_modal() {
  * @param {HTMLDialogElement} modal - HTML элемент "dialog", что представляет собой модальное окно, которое необходимо закрыть
  */
 function close_modal(modal) {
-    if(modal instanceof Object && modal.nodeName === 'DIALOG') {
+    if (modal instanceof Object && modal.nodeName === 'DIALOG') {
         modal.close();
         document.body.removeChild(modal);
         document.body.classList.remove('scroll_lock');
-    }
+    } else console.log(`не модалка\n${modal}`);
 }
 
 export default open_modal;
