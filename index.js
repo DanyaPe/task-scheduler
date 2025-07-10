@@ -1,7 +1,7 @@
-import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, OpenModal, Storage, SortSelect, Task } from "./js/data.js";
-import { onDragOver, CloseOnDrop, ReopenOnDrop, onDragLeave } from './js/drag_and_drop.js';
-import create_task_element from "./js/components/create_task_element.js";
+import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, OpenModal } from "./js/data.js";
+//import { onDragOver, CloseOnDrop, ReopenOnDrop, onDragLeave } from './js/drag_and_drop.js';
 import open_modal from "./js/open_modal.js";
+import fill_desc from "./js/fill_desc.js";
 
 /**
  * Добавляем обработчик для кнопки "Новая задача"
@@ -21,14 +21,4 @@ OpenModal.addEventListener('click', () => open_modal());
 /**
  * Формируем задачи на досках исходя из данных в localStorage
  */
-for (let index = 0; index < Storage.length; index++) {
-    try {
-        const SSTask = new Task(JSON.parse(Storage.getItem(Storage.key(index))));
-        SSTask.setId(Storage.key(index));
-        if (SSTask['Статус задачи'] !== 'Решена') NewTaskList.appendChild(create_task_element(SSTask));
-        else ResolvedTaskList.appendChild(create_task_element(SSTask));
-    } catch (error) {
-        console.error(`${error}\nНе удалось распарсить данные для формирования задачи по ключу: ${Storage.key(index)}`);
-        continue
-    };
-};
+fill_desc();

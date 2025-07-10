@@ -1,12 +1,12 @@
 import create_task_element from './components/create_task_element.js';
-import { Task, NewTaskList } from './data.js';
+import { Task, NewTaskList, Storage } from './data.js';
 
 /**
  * Функция открытия модального окна с формой для создания новой задачи в планировщике.
  */
 function open_modal() {
     const modal = document.createElement('dialog');
-    const id = document.querySelectorAll('li[id^="task_"]').length > 0 ? `task_${Number(Array.from(document.querySelectorAll('li[id^="task_"]')).at(-1).id.slice(-1)) + 1}` : 'task_1';
+    const id = Storage.length > 0 ? `task_${Number(Storage.key(Storage.length - 1).slice(-1)) + 1}` : 'task_1';
     modal.innerHTML = `
         <form id='create_new_task'>
             <button id='close_cross'>
@@ -61,7 +61,7 @@ function open_modal() {
 
 /**
  * Функция закрытия модального окна.
- * @param {HTMLDialogElement} modal - модальное окно, которое необходимо закрыть
+ * @param {HTMLDialogElement} modal - HTML элемент "dialog", что представляет собой модальное окно, которое необходимо закрыть
  */
 function close_modal(modal) {
     if(modal instanceof Object && modal.nodeName === 'DIALOG') {

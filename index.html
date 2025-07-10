@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <link rel="stylesheet" href="./styles/style.css">
+    <title>Планировщик задач</title>
+</head>
+<body>
+    <header>
+        <h1>Планировщик задач</h1>
+        <div>
+            <button id='open_modal'>Новая задача</button>
+            <!--Сортировка по 
+            <select id="sort">
+                <option selected>Дата окончания задачи</option>
+                <option >Название задачи</option>
+            </select-->
+        </div>
+    </header>
+    <main>
+        <div id='new_task_desk'>
+            <ul id='new_task_list'></ul>
+        </div>
+        <div id='resolved_task_desk'>
+            <ul id='resolved_task_list'></ul>
+        </div>
+    </main>
+    <footer>
+        <button id='check_session_storage_data' onclick="showSSData()">Check Storage Data</button>
+        <button id='check_session_storage_data' onclick="deleteSSData()">Clear Storage Data</button>
+        <script>
+            function showSSData() {
+                alert(JSON.stringify(localStorage, null, 2));
+                return;
+            }
+            function deleteSSData() {
+                localStorage.clear();
+                return;
+            }
+        </script>
+    </footer>
+    <script type="module" src="./index.js"></script>
+</body>
+</html>

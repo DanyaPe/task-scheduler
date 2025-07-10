@@ -2,7 +2,7 @@ import format_date from "../format_date.js";
 
 /**
  * Функция создания именованного поля для ввода и хранения данных. Поле формата HTML-элемента "input" вложенного в "label".
- * @param {!string} text - Наименование поля, будет отображаться как "label"
+ * @param {string} text - Наименование поля, будет отображаться как "label"
  * @param {?(string|Date)} value - Значение, которое будет указано в поле
  * @param {?string} id - Идентификатор для поиска поля в документе
  * @returns {HTMLLabelElement}
