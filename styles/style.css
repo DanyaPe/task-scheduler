@@ -16,6 +16,13 @@ body {
     padding: 20px;
 }
 
+dialog {
+    display: flex;
+    flex-direction: column;
+    row-gap: 12px;
+    padding: 0;
+}
+
 /* Стили для контейнера задач */
 #new_task_desk, #resolved_task_desk {
     min-height: 335px;
@@ -126,4 +133,9 @@ body.dark-mode button {
 
 body.dark-mode button:hover {
     background-color: #0056b3;
+}
+
+/* Вспомогательные классы */
+.scroll_lock {
+    overflow: hidden;
 }

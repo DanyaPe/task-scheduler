@@ -10,19 +10,12 @@
     <header>
         <h1>Планировщик задач</h1>
         <div>
-            <label>
-                Название задачи: <input type='text' id='new_task_name'>
-            </label>
-            <label>
-                Описание задачи: <textarea id='new_task_description' rows='3'></textarea>
-            </label>
-            <label>
-                Дата начала задачи: <input type='datetime-local' id='new_task_start_date'>
-            </label>
-            <label>
-                Дата выполнения задачи: <input type='datetime-local' id='new_task_end_date'>
-            </label>
-            <button id='create_new_task'>Создать задачу</button>
+            <button id='open_modal'>Новая задача</button>
+            <!--Сортировка по 
+            <select id="sort">
+                <option selected>Дата окончания задачи</option>
+                <option >Название задачи</option>
+            </select-->
         </div>
     </header>
     <main>
@@ -47,8 +40,6 @@
             }
         </script>
     </footer>
-    <script src="./index.js" type="module"></script>
-    <script src="./js/create_task_element.js" type="module"></script>
-    <script src="./js/data.js" type="module"></script>
+    <script type="module" src="./index.js"></script>
 </body>
 </html>

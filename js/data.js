@@ -2,20 +2,17 @@ const NewTaskList = document.getElementById('new_task_list');
 const ResolvedTaskList = document.getElementById('resolved_task_list');
 const NewTaskDesk = document.getElementById('new_task_desk');
 const ResolvedTaskDesk = document.getElementById('resolved_task_desk');
-const TaskNameInput = document.getElementById('new_task_name');
-const TaskDescriptionInput = document.getElementById('new_task_description');
-const TaskStartDateInput = document.getElementById('new_task_start_date');
-const TaskEndDateInput = document.getElementById('new_task_end_date');
-const CreateNewTaskButton = document.getElementById('create_new_task');
+const OpenModal = document.getElementById('open_modal');
+const SortSelect = document.getElementById('sort');
 const Storage = localStorage;
 
 /**
  * Класс, представляющий сущность задачи на доске, имеет 5 полей по умолчанию
- * @param "Статус задачи"
- * @param "Название задачи"
- * @param "Описание задачи"
- * @param "Дата начала задачи"
- * @param "Дата окончания задачи"
+ * @param {?string} "Статус задачи"
+ * @param {?string} "Название задачи"
+ * @param {?string} "Описание задачи"
+ * @param {?string} "Дата начала задачи"
+ * @param {?string} "Дата окончания задачи"
  */
 class Task {
     #id;
@@ -26,7 +23,6 @@ class Task {
         this['Описание задачи'] = description || '';
         this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date('');
         this['Дата окончания задачи'] = !isNaN(Date.parse(endDate)) ? new Date(endDate) : new Date('');
-        this.#id = document.querySelectorAll('li[id^="task_"]').length > 0 ? `task_${Number(Array.from(document.querySelectorAll('li[id^="task_"]')).at(-1).id.slice(-1)) + 1}` : 'task_1';
         for (let key in other) {
             this[key] = other[key];
         }
@@ -34,6 +30,9 @@ class Task {
     getId() {
         return this.#id;
     }
+    setId(id) {
+        this.#id = id;
+    }
 }
 
-export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, TaskNameInput, TaskDescriptionInput, TaskStartDateInput, TaskEndDateInput, CreateNewTaskButton, Storage, Task };
+export { NewTaskDesk, ResolvedTaskDesk, NewTaskList, ResolvedTaskList, OpenModal, Storage, SortSelect, Task };
