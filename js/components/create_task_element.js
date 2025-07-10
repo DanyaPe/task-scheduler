@@ -6,6 +6,7 @@ import task_edit_cancel from "../task/task_edit_cancel.js";
 import task_reopen from "../task/task_reopen.js";
 import create_field from "./create_field.js";
 import create_button from './create_button.js';
+import storage_check from "../storage_check.js";
 import { Storage, Task } from "../data.js";
 //import { onDragStart } from '../drag_and_drop.js';
 
@@ -39,6 +40,7 @@ function create_task_element(param) {
             SSTask = param;
             TaskListElement.id = SSTask.getId();
             Storage.setItem(TaskListElement.id, JSON.stringify(SSTask));
+            storage_check();
         }
         Object.keys(SSTask).forEach((key) => {
             TaskListElement.appendChild(create_field(key, SSTask[key]));

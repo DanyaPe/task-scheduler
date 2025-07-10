@@ -1,5 +1,6 @@
 import { ResolvedTaskDesk, NewTaskDesk, ResolvedTaskList, NewTaskList, OpenModal } from "./js/data.js";
 //import { onDragOver, CloseOnDrop, ReopenOnDrop, onDragLeave } from './js/drag_and_drop.js';
+import storage_check from "./js/storage_check.js";
 import open_modal from "./js/open_modal.js";
 import fill_desc from "./js/fill_desc.js";
 
@@ -19,6 +20,7 @@ OpenModal.addEventListener('click', () => open_modal());
 //NewTaskDesk.addEventListener('drop', ReopenOnDrop);
 
 /**
- * Формируем задачи на досках исходя из данных в localStorage
+ * Формируем задачи на досках исходя из данных в localStorage, также проверяем лимит хранилища
  */
 fill_desc();
+storage_check();
