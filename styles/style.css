@@ -17,10 +17,25 @@ body {
 }
 
 dialog {
+    border-width: 0px;
+    border-radius: 5%;
+}
+
+dialog::backdrop {
+    background: rgba(0, 0, 0, 0.3);
+}
+
+form {
     display: flex;
     flex-direction: column;
-    row-gap: 12px;
+    row-gap: 30px;
     padding: 0;
+    align-items: start;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
 }
 
 /* Стили для контейнера задач */
@@ -77,10 +92,15 @@ button:disabled {
     display: none;
 }
 
-h1 {
-    text-align: center;
-    color: #333;
+#close_cross {
+    align-self: end;
 }
+
+#create_new_task {
+    align-self: center;
+}
+
+/* Стили для полей */
 
 li label {
     display: flex;
@@ -112,9 +132,9 @@ li label input:disabled {
     border-bottom-color: #dbdbdb;
 }
 
-footer {
+h1 {
     text-align: center;
-    padding: 20px;
+    color: #333;
 }
 
 /* Темная тема */
