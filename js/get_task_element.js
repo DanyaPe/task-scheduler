@@ -10,7 +10,7 @@ function get_task_element(taskId) {
         buttons: {},
     };
     document.querySelectorAll(`li#${taskId} label`).forEach((el) => {
-        if(el.childNodes[0].nodeName === '#text' && el.childNodes[1].nodeName === 'INPUT') {
+        if(el.childNodes[0].nodeName === '#text' && (el.childNodes[1].nodeName === 'INPUT' || el.childNodes[1].nodeName === 'TEXTAREA')) {
             TaskElement.inputs[el.childNodes[0].data] = el.childNodes[1];
         };
     });

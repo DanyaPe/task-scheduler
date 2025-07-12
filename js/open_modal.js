@@ -23,10 +23,10 @@ function open_modal() {
                 </svg>
             </button>
             <label>
-                Название задачи: <input type='text' id='new_task_name'>
+                Название задачи: <textarea type='text' id='new_task_name' rows='1'></textarea>
             </label>
             <label>
-                Описание задачи: <textarea id='new_task_description' rows='3'></textarea>
+                Описание задачи: <textarea id='new_task_description' rows='1'></textarea>
             </label>
             <label>
                 Дата начала задачи: <input type='datetime-local' id='new_task_start_date'>
@@ -50,25 +50,24 @@ function open_modal() {
         NewTaskList.appendChild(create_task_element(taskObj));
         close_modal(modal);
     });
-    modal.addEventListener('click', (event) => {
-        if (event.target == event.currentTarget) {
-            close_modal(modal);
-        }
-    });
     document.getElementById('close_cross').addEventListener('click', ()=> {
         close_modal(modal);
     });
     modal.addEventListener('keydown', (event) => {
         if (event.key === 'Esc') close_modal(modal);
     });
-    document.querySelectorAll('form input,textarea').forEach((el) => {
+    document.querySelectorAll('form textarea,input').forEach((el) => {
         el.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault();
                 event.stopPropagation();
                 modal.focus();
             }
-        })
+        });
+        el.addEventListener('input', () => {
+            el.style.height = 'auto';
+            el.style.height = `${el.scrollHeight}px`;
+        });
     });
     modal.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {

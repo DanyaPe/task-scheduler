@@ -14,34 +14,38 @@ function create_field(name, value, id) {
     };
     const label = document.createElement('label');
     label.textContent = name;
-    const input = document.createElement('input');
+    let field;
     if (!value || value === undefined) {
-        input.type = 'text';
-        value = '';
+        field = document.createElement('textarea');
+        field.rows = '1';
+        field.value = '';
+        field.addEventListener('input', () => {
+            field.style.height = 'auto';
+            field.style.height = `${field.scrollHeight}px`;
+        });
+    } else if (typeof value === 'string') {
+        field = document.createElement('textarea');
+        field.rows = '1';
+        field.value = value;
+        field.addEventListener('input', () => {
+            field.style.height = 'auto';
+            field.style.height = `${field.scrollHeight}px`;
+        });
     } else if (value instanceof Date) {
-        input.type = 'datetime-local';
-        input.value = format_date(value);
-    } else {
-        input.type = typeof value;
-        input.value = value;
+        field = document.createElement('input');
+        field.type = 'datetime-local';
+        field.value = format_date(value);
     };
     if (id) {
         if (typeof id === 'string') {
-            input.id = id;
+            field.id = id;
         } else {
             console.error(`Указание добавочного идентификатора поля должно быть в формате строки:\n${id}\nОшибка при создании поля`);
             return;
         };
     };
-    input.disabled = true;
-    input.addEventListener('keydown', (event) => {
-        if(event.key === 'Enter') {
-            event.preventDefault();
-            event.stopPropagation();
-            input.blur();
-        }
-    });
-    label.appendChild(input);
+    field.disabled = true;
+    label.appendChild(field);
     return label;
 }
 

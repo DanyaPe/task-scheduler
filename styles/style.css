@@ -109,7 +109,7 @@ li label {
     row-gap: 10px;
 }
 
-li label input, li label input:focus-visible {
+textarea, input, input:focus-visible {
     outline: none;
     padding: 0;
     width: 100%;
