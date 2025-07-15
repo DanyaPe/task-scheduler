@@ -16,20 +16,34 @@ const Storage = localStorage;
  */
 class Task {
     #id;
+
     constructor(options = {}) {
-        const { ['Статус задачи']: status, ['Название задачи']: name, ['Описание задачи']: description, ['Дата начала задачи']: startDate, ['Дата окончания задачи']: endDate, ...other } = options;
+        const { ['Статус задачи']: status, ['Название задачи']: name, ['Описание задачи']: description, ['Дата начала задачи']: startDate, ['Дата окончания задачи']: endDate, id, ...other } = options;
         this['Статус задачи'] = status || 'Новая';
         this['Название задачи'] = name || 'Без названия';
         this['Описание задачи'] = description || '';
-        this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date('');
+        this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date();
         this['Дата окончания задачи'] = !isNaN(Date.parse(endDate)) ? new Date(endDate) : new Date('');
         for (let key in other) {
             this[key] = other[key];
         }
-    }
+        if (id && typeof id === 'string') this.#id = id;
+        else {
+            if (Storage.length > 0) {
+                this.#id = `task_${Number(Storage.key(Storage.length - 1).slice(-1)) + 1}`;
+                while (Storage.getItem(this.#id) !== null) {
+                    this.#id = `task_${Number(this.#id.slice(-1)) + 1}`;
+                }
+            } else {
+                this.#id = 'task_1';
+            };
+        }
+    };
+    
     getId() {
         return this.#id;
     }
+    
     setId(id) {
         this.#id = id;
     }

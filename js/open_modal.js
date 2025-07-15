@@ -1,20 +1,12 @@
 import create_task_element from './components/create_task_element.js';
 import { Task, NewTaskList, Storage } from './data.js';
+import format_date from './format_date.js';
 
 /**
  * Функция открытия модального окна с формой для создания новой задачи в планировщике.
  */
 function open_modal() {
     const modal = document.createElement('dialog');
-    let id;
-    if (Storage.length > 0) {
-        id = `task_${Number(Storage.key(Storage.length - 1).slice(-1)) + 1}`;
-        while (Storage.getItem(id) !== null) {
-            id = `task_${Number(id.slice(-1)) + 1}`;
-        }
-    } else {
-        id = 'task_1';
-    };
     modal.innerHTML = `
         <form id='new_task_form'>
             <button id='close_cross'>
@@ -29,7 +21,7 @@ function open_modal() {
                 Описание задачи: <textarea id='new_task_description' rows='1'></textarea>
             </label>
             <label>
-                Дата начала задачи: <input type='datetime-local' id='new_task_start_date'>
+                Дата начала задачи: <input type='datetime-local' id='new_task_start_date' value=${format_date(new Date())}>
             </label>
             <label>
                 Дата выполнения задачи: <input type='datetime-local' id='new_task_end_date'>
@@ -46,7 +38,6 @@ function open_modal() {
             'Дата начала задачи': document.getElementById('new_task_start_date').value,
             'Дата окончания задачи': document.getElementById('new_task_end_date').value,
         });
-        taskObj.setId(id);
         NewTaskList.appendChild(create_task_element(taskObj));
         close_modal(modal);
     });
