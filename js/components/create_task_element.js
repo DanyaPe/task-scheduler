@@ -41,9 +41,30 @@ function create_task_element(param) {
             TaskListElement.id = SSTask.getId();
             Storage.setItem(TaskListElement.id, JSON.stringify(SSTask));
             storage_check();
-        }
-        Object.keys(SSTask).forEach((key) => {
-            TaskListElement.appendChild(create_field(key, SSTask[key]));
+        };
+        Object.keys(SSTask).forEach((field) => {
+            let text;
+            switch (field) {
+                case 'status':
+                    text = 'Статус задачи';
+                    break;
+                case 'name':
+                    text = 'Название задачи';
+                    break;
+                case 'description':
+                    text = 'Описание задачи';
+                    break;
+                case 'startDate':
+                    text = 'Дата начала задачи';
+                    break;
+                case 'endDate':
+                    text = 'Дата окончания задачи';
+                    break;
+                default:
+                    text = field;
+                    break;
+            };
+            TaskListElement.appendChild(create_field({ text: text, name: field, value: SSTask[field] }));
         });
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Сохранить задачу', true, task_save));
         TaskListElement.appendChild(create_button(TaskListElement.id, 'Отменить изменения', true, task_edit_cancel));

@@ -14,31 +14,22 @@ function open_modal() {
                     <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
                 </svg>
             </button>
-            <label>
-                Название задачи: <textarea type='text' id='new_task_name' rows='1'></textarea>
-            </label>
-            <label>
-                Описание задачи: <textarea id='new_task_description' rows='1'></textarea>
-            </label>
-            <label>
-                Дата начала задачи: <input type='datetime-local' id='new_task_start_date' value=${format_date(new Date())}>
-            </label>
-            <label>
-                Дата выполнения задачи: <input type='datetime-local' id='new_task_end_date'>
-            </label>
+            <label>Статус задачи:<input type='text' name='status' id='new_task_status' value='Новая' disabled></label>
+            <label>Название задачи:<textarea name='name' id='new_task_name' rows='1'></textarea></label>
+            <label>Описание задачи:<textarea name='description' id='new_task_description' rows='1'></textarea></label>
+            <label>Дата начала задачи:<input type='datetime-local' name='startDate' id='new_task_start_date' value='${format_date(new Date)}'></label>
+            <label>Дата выполнения задачи:<input type='datetime-local' name='endDate' id='new_task_end_date'></label>
             <button action='submit' id='create_new_task'>Создать задачу</button>
         </form>`;
     document.body.appendChild(modal);
-    document.getElementById('new_task_form').addEventListener('submit', (event) => {
+    const form = modal.querySelector('form');
+    form.addEventListener('submit', (event) => {
         event.preventDefault();
-        const taskObj = new Task( {
-            'Статус задачи': 'Новая',
-            'Название задачи': document.getElementById('new_task_name').value,
-            'Описание задачи': document.getElementById('new_task_description').value,
-            'Дата начала задачи': document.getElementById('new_task_start_date').value,
-            'Дата окончания задачи': document.getElementById('new_task_end_date').value,
-        });
-        NewTaskList.appendChild(create_task_element(taskObj));
+        const option = {};
+        for (let node of form) {
+            if (node.nodeName === 'INPUT' || node.nodeName === 'TEXTAREA') option[node.name] = node.value;
+        };
+        NewTaskList.appendChild(create_task_element(new Task(option)));
         close_modal(modal);
     });
     document.getElementById('close_cross').addEventListener('click', ()=> {

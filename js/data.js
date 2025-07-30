@@ -7,23 +7,23 @@ const SortSelect = document.getElementById('sort');
 const Storage = localStorage;
 
 /**
- * Класс, представляющий сущность задачи на доске, имеет 5 полей по умолчанию
- * @param {?string} "Статус задачи"
- * @param {?string} "Название задачи"
- * @param {?string} "Описание задачи"
- * @param {?string} "Дата начала задачи"
- * @param {?string} "Дата окончания задачи"
+ * Класс, представляющий сущность задачи на доске, имеет 5 атрибутов по умолчанию
+ * @param {?string} id - Идентификатор задачи
+ * @param {?string} status - Статус задачи
+ * @param {?string} name - Название задачи
+ * @param {?string} description - Описание задачи
+ * @param {?string} startDate - Дата начала задачи
+ * @param {?string} endDate - Дата окончания задачи
  */
 class Task {
     #id;
 
-    constructor(options = {}) {
-        const { ['Статус задачи']: status, ['Название задачи']: name, ['Описание задачи']: description, ['Дата начала задачи']: startDate, ['Дата окончания задачи']: endDate, id, ...other } = options;
-        this['Статус задачи'] = status || 'Новая';
-        this['Название задачи'] = name || 'Без названия';
-        this['Описание задачи'] = description || '';
-        this['Дата начала задачи'] = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date();
-        this['Дата окончания задачи'] = !isNaN(Date.parse(endDate)) ? new Date(endDate) : new Date('');
+    constructor({ id, status, name, description, startDate, endDate, ...other } = {}) {
+        this.status = status || 'Новая';
+        this.name = name || 'Без названия';
+        this.description = description || '';
+        this.startDate = !isNaN(Date.parse(startDate)) ? new Date(startDate) : new Date();
+        this.endDate = !isNaN(Date.parse(endDate)) ? new Date(endDate) : new Date('');
         for (let key in other) {
             this[key] = other[key];
         }

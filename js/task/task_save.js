@@ -7,7 +7,7 @@ import get_task_element from '../components/get_task_element.js';
  */
 function task_save(taskId) {
     const TaskEl = get_task_element(taskId);
-    if (TaskEl.inputs['Дата начала задачи'].value && TaskEl.inputs['Дата окончания задачи'].value && TaskEl.inputs['Дата окончания задачи'].value <= TaskEl.inputs['Дата начала задачи'].value) {
+    if (TaskEl.inputs.startDate.value && TaskEl.inputs.endDate.value && TaskEl.inputs.endDate.value <= TaskEl.inputs.startDate.value) {
         alert('Значение поля "Дата выполнения задачи" должно быть больше значения поля "Дата начала задачи"');
         return;
     } else {
