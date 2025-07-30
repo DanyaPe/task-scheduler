@@ -66,12 +66,14 @@ function create_task_element(param) {
             };
             TaskListElement.appendChild(create_field({ text: text, name: field, value: SSTask[field] }));
         });
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Сохранить задачу', true, task_save));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Отменить изменения', true, task_edit_cancel));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Редактировать задачу', SSTask['Статус задачи'] === 'Решена', task_edit));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Выполнить задачу', SSTask['Статус задачи'] === 'Решена', task_resolve));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Вернуть задачу в работу', SSTask['Статус задачи'] !== 'Решена', task_reopen));
-        TaskListElement.appendChild(create_button(TaskListElement.id, 'Удалить задачу', false, task_delete));
+        console.log(SSTask);
+        TaskListElement.appendChild(create_button('Сохранить задачу', task_save, TaskListElement.id)).disabled = true;
+        TaskListElement.appendChild(create_button('Отменить изменения', task_edit_cancel, TaskListElement.id)).disabled = true;
+        TaskListElement.appendChild(create_button('Редактировать задачу', task_edit, TaskListElement.id)).disabled = SSTask.status === 'Решена';
+        TaskListElement.appendChild(create_button('Выполнить задачу', task_resolve, TaskListElement.id)).disabled = SSTask.status === 'Решена';
+        TaskListElement.appendChild(create_button('Вернуть задачу в работу', task_reopen, TaskListElement.id)).disabled = SSTask.status !== 'Решена';
+        TaskListElement.appendChild(create_button('Удалить задачу', task_delete, TaskListElement.id)).disabled = false;
+        
         //TaskListElement.addEventListener('dragstart', onDragStart);
 
         return TaskListElement;
