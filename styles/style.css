@@ -92,7 +92,7 @@ button:disabled {
     display: none;
 }
 
-#close_cross {
+.cross {
     align-self: end;
 }
 

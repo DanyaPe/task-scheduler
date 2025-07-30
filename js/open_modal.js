@@ -1,5 +1,5 @@
 import create_task_element from './components/create_task_element.js';
-import { Task, NewTaskList, Storage } from './data.js';
+import { Task, NewTaskList } from './data.js';
 import format_date from './format_date.js';
 
 /**
@@ -9,7 +9,7 @@ function open_modal() {
     const modal = document.createElement('dialog');
     modal.innerHTML = `
         <form id='new_task_form'>
-            <button id='close_cross'>
+            <button id='close_cross' class='cross'>
                 <svg width='15px' height='15px' viewBox='0 0 24 24' fill='none' xmlns='http://www.w3.org/2000/svg'>
                     <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
                 </svg>
@@ -32,13 +32,10 @@ function open_modal() {
         NewTaskList.appendChild(create_task_element(new Task(option)));
         close_modal(modal);
     });
-    document.getElementById('close_cross').addEventListener('click', ()=> {
+    form.querySelector('#close_cross').addEventListener('click', ()=> {
         close_modal(modal);
     });
-    modal.addEventListener('keydown', (event) => {
-        if (event.key === 'Esc') close_modal(modal);
-    });
-    document.querySelectorAll('form textarea,input').forEach((el) => {
+    form.querySelectorAll('textarea, input').forEach((el) => {
         el.addEventListener('keydown', (event) => {
             if (event.key === 'Enter') {
                 event.preventDefault();
@@ -50,6 +47,9 @@ function open_modal() {
             el.style.height = 'auto';
             el.style.height = `${el.scrollHeight}px`;
         });
+    });
+    modal.addEventListener('keydown', (event) => {
+        if (event.key === 'Esc') close_modal(modal);
     });
     modal.addEventListener('keydown', (event) => {
         if (event.key === 'Enter') {
@@ -72,7 +72,7 @@ function close_modal(modal) {
         modal.close();
         document.body.removeChild(modal);
         document.body.classList.remove('scroll_lock');
-    } else console.log(`не модалка\n${modal}`);
+    } else console.log(`Ошибка выполнения функции, переданный аргумент не является элементом модального окна\n${modal}`);
 }
 
 export default open_modal;
