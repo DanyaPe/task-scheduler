@@ -1,5 +1,5 @@
 import { Storage, Task } from "../data.js";
-import get_task_element from '../get_task_element.js';
+import get_task_element from '../components/get_task_element.js';
 
 /**
  * Функция сохранения текущего состояния задачи

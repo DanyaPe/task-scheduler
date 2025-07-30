@@ -1,4 +1,4 @@
-import get_task_element from '../get_task_element.js';
+import get_task_element from '../components/get_task_element.js';
 
 /**
  * Функция перевода задачи в режим редактирования

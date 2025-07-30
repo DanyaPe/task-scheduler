@@ -1,4 +1,4 @@
-import get_task_element from '../get_task_element.js';
+import get_task_element from '../components/get_task_element.js';
 import storage_check from '../storage_check.js';
 import { Storage } from '../data.js';
 
