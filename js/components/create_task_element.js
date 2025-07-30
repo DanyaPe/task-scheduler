@@ -66,7 +66,6 @@ function create_task_element(param) {
             };
             TaskListElement.appendChild(create_field({ text: text, name: field, value: SSTask[field] }));
         });
-        console.log(SSTask);
         TaskListElement.appendChild(create_button('Сохранить задачу', task_save, TaskListElement.id)).disabled = true;
         TaskListElement.appendChild(create_button('Отменить изменения', task_edit_cancel, TaskListElement.id)).disabled = true;
         TaskListElement.appendChild(create_button('Редактировать задачу', task_edit, TaskListElement.id)).disabled = SSTask.status === 'Решена';
