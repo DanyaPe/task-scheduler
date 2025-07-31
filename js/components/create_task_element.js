@@ -8,6 +8,7 @@ import create_field from "./create_field.js";
 import create_button from './create_button.js';
 import storage_check from "../storage_check.js";
 import { Storage, Task } from "../data.js";
+import format_date from "../format_date.js";
 //import { onDragStart } from '../drag_and_drop.js';
 
 /**
@@ -39,7 +40,10 @@ function create_task_element(param) {
         } else {
             SSTask = param;
             TaskListElement.id = SSTask.getId();
-            Storage.setItem(TaskListElement.id, JSON.stringify(SSTask));
+            Storage.setItem(TaskListElement.id, JSON.stringify(SSTask, (key, value) => {
+                if (!isNaN(Date.parse(value))) return format_date(new Date(value));
+                return value;
+            }));
             storage_check();
         };
         Object.keys(SSTask).forEach((field) => {
