@@ -9,13 +9,13 @@ function get_task_element(taskId) {
         inputs: {},
         buttons: {},
     };
-    document.querySelectorAll(`li#${taskId} label`).forEach((el) => {
-        if(el.childNodes[0].nodeName === '#text' && el.childNodes[1].nodeName === 'INPUT') {
-            TaskElement.inputs[el.childNodes[0].data] = el.childNodes[1];
+    document.querySelectorAll(`li#${taskId} label`).forEach((label) => {
+        for (let field of label.childNodes) {
+            if (field.nodeName === 'INPUT' || field.nodeName === 'TEXTAREA') TaskElement.inputs[field.name] = field;
         };
     });
-    document.querySelectorAll(`li#${taskId} button`).forEach((el) => {
-        TaskElement.buttons[el.textContent] = el;
+    document.querySelectorAll(`li#${taskId} button`).forEach((button) => {
+        TaskElement.buttons[button.textContent] = button;
     });
     return TaskElement;
 }

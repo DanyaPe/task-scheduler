@@ -1,5 +1,5 @@
-import { NewTaskList, ResolvedTaskList, Storage, Task } from "./data.js";
-import get_task_element from './get_task_element.js';
+import { NewTaskList, ResolvedTaskList, Storage, Task } from "../data.js";
+import get_task_element from '../components/get_task_element.js';
 
 /**
  * Функция перевода задачи в статус "Выполнена"
@@ -8,9 +8,9 @@ import get_task_element from './get_task_element.js';
 function task_resolve(taskId) {
     const TaskEl = get_task_element(taskId);
     const SSTask = new Task(JSON.parse(Storage.getItem(taskId)));
-    SSTask['Статус задачи'] = 'Решена';
+    SSTask.status = 'Решена';
     Storage.setItem(taskId, JSON.stringify(SSTask));
-    TaskEl.inputs['Статус задачи'].value = 'Решена';
+    TaskEl.inputs.status.value = 'Решена';
     NewTaskList.removeChild(TaskEl.li);
     ResolvedTaskList.appendChild(TaskEl.li);
     TaskEl.buttons['Выполнить задачу'].disabled = true;
