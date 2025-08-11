@@ -73,6 +73,18 @@ ul {
     background-color: var(--task-background-color);
 }
 
+#new_task_desk ul li.new_task_block {
+    display: flex;
+    flex-direction: column;
+    border: 1px dashed #e0e0e0;
+    border-radius: 5%;
+    text-align: center;
+    background-color: white;
+    color:#333;
+    font-size: large;
+    font-weight: 800;
+}
+
 /* Стили для кнопок */
 button {
     background-color: #28a745;
