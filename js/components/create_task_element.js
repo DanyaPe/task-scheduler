@@ -13,7 +13,7 @@ import format_date from "../format_date.js";
 
 /**
  * Функция создания задачи в виде HTML-элемента "li" с набором полей и кнопок.
- * @param {Task | string} param - Параметр формирования, объект экземпляра "Task" или идентификатор уже созданной задачи в хранилище
+ * @param {!(Task | string)} param - Параметр формирования, объект экземпляра "Task" или идентификатор уже созданной задачи в хранилище
  * @returns {HTMLLIElement}
  */
 function create_task_element(param) {
@@ -47,28 +47,34 @@ function create_task_element(param) {
             storage_check();
         };
         Object.keys(SSTask).forEach((field) => {
-            let text;
+            let text, type;
             switch (field) {
                 case 'status':
                     text = 'Статус задачи';
+                    type = 'text';
                     break;
                 case 'name':
                     text = 'Название задачи';
+                    type = 'text';
                     break;
                 case 'description':
                     text = 'Описание задачи';
+                    type = 'text';
                     break;
                 case 'startDate':
                     text = 'Дата начала задачи';
+                    type = 'date';
                     break;
                 case 'endDate':
                     text = 'Дата окончания задачи';
+                    type = 'date';
                     break;
                 default:
                     text = field;
+                    type = typeof field;
                     break;
             };
-            TaskListElement.appendChild(create_field({ text: text, name: field, value: SSTask[field] }));
+            TaskListElement.appendChild(create_field(text, field, type, [field]));
         });
         TaskListElement.appendChild(create_button('Сохранить задачу', task_save, TaskListElement.id)).disabled = true;
         TaskListElement.appendChild(create_button('Отменить изменения', task_edit_cancel, TaskListElement.id)).disabled = true;
