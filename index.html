@@ -9,25 +9,21 @@
 <body>
     <header>
         <h1>Планировщик задач</h1>
-        <div>
-            <button id='open_modal'>Новая задача</button>
-            <!--Сортировка по 
-            <select id="sort">
-                <option selected>Дата окончания задачи</option>
-                <option >Название задачи</option>
-            </select-->
-        </div>
     </header>
     <main>
         <div id='new_task_desk'>
-            <ul id='new_task_list'></ul>
+            Новые задачи
+            <ul id='new_task_list'>
+                <li class="new_task_block" id="open_modal">Создать задачу</li>
+            </ul>
         </div>
         <div id='resolved_task_desk'>
+            Решенные задачи
             <ul id='resolved_task_list'></ul>
         </div>
     </main>
     <footer>
-        <button id='check_session_storage_data' onclick="showSSData()">Check Storage Data</button>
+        <!--button id='check_session_storage_data' onclick="showSSData()">Check Storage Data</button>
         <button id='check_session_storage_data' onclick="deleteSSData()">Clear Storage Data</button>
         <script>
             function showSSData() {
@@ -38,7 +34,7 @@
                 localStorage.clear();
                 return;
             }
-        </script>
+        </script-->
     </footer>
     <script type="module" src="./index.js"></script>
 </body>
