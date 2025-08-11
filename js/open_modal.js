@@ -1,5 +1,5 @@
 import create_task_element from './components/create_task_element.js';
-import { Task, NewTaskList } from './data.js';
+import { OpenModal, Task, NewTaskList } from './data.js';
 import format_date from './format_date.js';
 
 /**
@@ -29,20 +29,13 @@ function open_modal() {
         for (let node of form) {
             if (node.nodeName === 'INPUT' || node.nodeName === 'TEXTAREA') option[node.name] = node.value;
         };
-        NewTaskList.appendChild(create_task_element(new Task(option)));
+        OpenModal.after(create_task_element(new Task(option)));
         close_modal(modal);
     });
     form.querySelector('#close_cross').addEventListener('click', ()=> {
         close_modal(modal);
     });
     form.querySelectorAll('textarea, input').forEach((el) => {
-        el.addEventListener('keydown', (event) => {
-            if (event.key === 'Enter') {
-                event.preventDefault();
-                event.stopPropagation();
-                modal.focus();
-            }
-        });
         el.addEventListener('input', () => {
             el.style.height = 'auto';
             el.style.height = `${el.scrollHeight}px`;
@@ -50,13 +43,6 @@ function open_modal() {
     });
     modal.addEventListener('keydown', (event) => {
         if (event.key === 'Esc') close_modal(modal);
-    });
-    modal.addEventListener('keydown', (event) => {
-        if (event.key === 'Enter') {
-            event.preventDefault();
-            event.stopPropagation();
-            document.getElementById('new_task_form').dispatchEvent(new Event('submit'));
-        }
     });
     modal.showModal();
     modal.focus();
