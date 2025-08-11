@@ -74,7 +74,7 @@ function create_task_element(param) {
                     type = typeof field;
                     break;
             };
-            TaskListElement.appendChild(create_field(text, field, type, [field]));
+            TaskListElement.appendChild(create_field(text, field, type, SSTask[field]));
         });
         TaskListElement.appendChild(create_button('Сохранить задачу', task_save, TaskListElement.id)).disabled = true;
         TaskListElement.appendChild(create_button('Отменить изменения', task_edit_cancel, TaskListElement.id)).disabled = true;
