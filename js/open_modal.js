@@ -14,7 +14,7 @@ function open_modal() {
                     <path d='M19 5L5 19M5.00001 5L19 19' stroke='#000000' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/>
                 </svg>
             </button>
-            <label>Статус задачи:<input type='text' name='status' id='new_task_status' value='Новая' disabled></label>
+            <label>Статус задачи:<input type='text' name='status' id='new_task_status' value='Новая' disabled style='color:black;'></label>
             <label>Название задачи:<textarea name='name' id='new_task_name' rows='1'></textarea></label>
             <label>Описание задачи:<textarea name='description' id='new_task_description' rows='1'></textarea></label>
             <label>Дата начала задачи:<input type='datetime-local' name='startDate' id='new_task_start_date' value='${format_date(new Date)}'></label>

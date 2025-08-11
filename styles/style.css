@@ -73,7 +73,7 @@ ul {
     background-color: var(--task-background-color);
 }
 
-#new_task_desk ul li.new_task_block {
+#new_task_desk ul li.add_element_block, .add_element_block {
     display: flex;
     flex-direction: column;
     border: 1px dashed #e0e0e0;
